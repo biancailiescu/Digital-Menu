@@ -1,46 +1,69 @@
 import React, { useState } from "react";
-import { menuData } from "../data/menuData";
-import CategoryFilter from "../components/CategoryFilter";
-import "style/Menu.css";
+import { menuData, Product } from "../data/menuData"; 
+import ProductCard from "../components/ProductCard"; 
+import Dropdown from "../components/Dropdown"; 
+import CartSummary from "../components/CartSummary"; 
+import "style/Menu.css"; 
+
+interface CartItem extends Product {
+  quantity: number; 
+}
 
 const Menu: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [cartItems, setCartItems] = useState<CartItem[]>([]);
+  const [showCart, setShowCart] = useState<boolean>(false);
+
+  // Extract category names from menuData
+  const categories = menuData.map((category) => category.category);
+
+  // Filter products based on the selected category
+  const filteredProducts = selectedCategory
+    ? menuData.find((category) => category.category === selectedCategory)?.products || []
+    : menuData.flatMap((category) => category.products);
+
+  const handleUpdateCart = (product: Product, quantity: number) => {
+    setCartItems((prevCartItems) => {
+      if (quantity === 0) {
+        return prevCartItems.filter((item) => item.id !== product.id); 
+      }
+
+      const existingItem = prevCartItems.find((item) => item.id === product.id);
+      if (existingItem) {
+        return prevCartItems.map((item) =>
+          item.id === product.id ? { ...item, quantity } : item
+        );
+      }
+
+      return [...prevCartItems, { ...product, quantity }]; 
+    });
+  };
 
   return (
-    <div className="container">
-      {/* Title */}
-      <h1 className="title">Menu</h1>
+    <div className="menu-container">
+     
+      <h1 className="menu-title">Menu</h1>
 
-      {/* Categories */}
-      <div className="categories">
-        {menuData.map((item) => (
-          <button
-            key={item.category}
-            onClick={() => setSelectedCategory(item.category)}
-            className={`categoryButton ${
-              selectedCategory === item.category ? "selected" : ""
-            }`}
-          >
-            {item.category}
-          </button>
+      <Dropdown options={categories} onSelect={setSelectedCategory} />
+
+      <div className="products">
+        {filteredProducts.map((product) => (
+          <ProductCard
+            key={product.id}
+            {...product}
+            cartQuantity={
+              cartItems.find((item) => item.id === product.id)?.quantity || 0
+            }
+            onUpdateCart={handleUpdateCart}
+          />
         ))}
       </div>
 
-      {/* Products */}
-      {selectedCategory && (
-        <div className="products">
-          <h2>{selectedCategory}</h2>
-          <ul>
-            {menuData
-              .find((item) => item.category === selectedCategory)
-              ?.products.map((product) => (
-                <li key={product.id} className="productItem">
-                  {product.name} - ${product.price}
-                </li>
-              ))}
-          </ul>
-        </div>
-      )}
+      <button className="cart-button" onClick={() => setShowCart(!showCart)}>
+        {showCart ? "Close Cart" : "View Cart"}
+      </button>
+
+      {showCart && <CartSummary cartItems={cartItems} />}
     </div>
   );
 };

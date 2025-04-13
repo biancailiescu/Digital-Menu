@@ -1,0 +1,23 @@
+.category-filter {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .filter-button {
+    padding: 10px 20px;
+    font-size: 18px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+  }
+  
+  .filter-button:hover {
+    background-color: #f0f0f0; 
+  }
+  
+  .filter-button.selected {
+    background-color: #ccc; 
+  }
+  
