@@ -15,14 +15,17 @@ const Menu: React.FC = () => {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [showCart, setShowCart] = useState<boolean>(false);
   const [sortOrder, setSortOrder] = useState<string>("default");
-
+  const [searchTerm, setSearchTerm] = useState<string>("");
   const categories = menuData.map((category) => category.category);
 
   const filteredProducts = selectedCategory
     ? menuData.find((category) => category.category === selectedCategory)?.products || []
     : menuData.flatMap((category) => category.products);
 
-  const sortedProducts = [...filteredProducts].sort((a, b) => {
+  const searchedProducts = filteredProducts.filter(product =>
+   product.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+  const sortedProducts = [...searchedProducts].sort((a, b) => {
     if (sortOrder === "asc") return a.price - b.price;
     if (sortOrder === "desc") return b.price - a.price;
     return 0;
@@ -64,6 +67,14 @@ const Menu: React.FC = () => {
             <option value="asc">Price: Low to High</option>
             <option value="desc">Price: High to Low</option>
           </select>
+      </div>
+      <div className="search-bar">
+        <input
+          type="text"
+          placeholder="Search products..."
+          value={searchTerm}
+          onChange={e => setSearchTerm(e.target.value)}
+        />
       </div>
       <div className="products">
           {sortedProducts.map((product) => (
