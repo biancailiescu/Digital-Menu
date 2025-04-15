@@ -1,44 +1,99 @@
-.home-container {
-    text-align: center;
-    padding: 50px;
-    background-color: #f9f9f9;
-  }
-  
-  .welcome-title {
-    font-size: 48px;
-    color: #333;
-  }
-  
-  .welcome-message {
-    font-size: 18px;
-    color: #666;
-    margin-bottom: 20px;
-  }
-  
-  .language-selector {
-    margin-bottom: 20px;
-  }
-  
-  .language-selector label {
-    font-size: 16px;
-  }
-  
-  .language-selector select {
-    margin-left: 10px;
-    padding: 5px;
-  }
-  
-  .start-order-button {
-    padding: 15px 30px;
-    font-size: 18px;
-    cursor: pointer;
-    background-color: #3498db;
-    color: white;
-    border: none;
-    border-radius: 5px;
-  }
-  
-  .start-order-button:hover {
-    background-color: #2980b9;
-  }
-  
+:root {
+  --green: #c9e4b3;
+  --yellow: #f7f6cf;
+  --peach: #f7c59f;
+  --pink: #ef7c8e;
+  --deep-red: #a3333d;
+}
+
+.home-bg {
+  min-height: 100vh;
+  background: linear-gradient(
+    to bottom,
+    var(--green) 0%,
+    var(--yellow) 33%,
+    var(--peach) 66%,
+    var(--pink) 100%
+  );
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.home-card {
+  background: rgba(255,255,255,0.95);
+  border-radius: 24px;
+  box-shadow: 0 8px 32px rgba(163,51,61,0.08);
+  padding: 48px 32px 32px 32px;
+  max-width: 400px;
+  width: 90vw;
+  text-align: center;
+  margin-top: 40px;
+}
+
+.home-title {
+  font-size: 2.5rem;
+  color: var(--deep-red);
+  margin-bottom: 12px;
+  font-family: 'Merriweather', serif;
+}
+
+.brand {
+  color: var(--pink);
+  font-weight: bold;
+}
+
+.home-subtitle {
+  font-size: 1.2rem;
+  color: #444;
+  margin-bottom: 32px;
+}
+
+.language-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 28px;
+}
+
+.language-label {
+  margin-right: 10px;
+  font-size: 1rem;
+  color: var(--deep-red);
+}
+
+.language-select {
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: 1px solid var(--peach);
+  background: var(--yellow);
+  font-size: 1rem;
+}
+
+.start-order-btn {
+  background: var(--deep-red);
+  color: var(--yellow);
+  border: none;
+  border-radius: 8px;
+  padding: 16px 32px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s;
+  margin-top: 10px;
+  box-shadow: 0 2px 8px rgba(239,124,142,0.08);
+}
+
+.start-order-btn:hover {
+  background: var(--pink);
+  color: var(--deep-red);
+}
+
+.home-footer {
+  margin-top: 40px;
+  color: var(--deep-red);
+  font-size: 1rem;
+  opacity: 0.7;
+  text-align: center;
+}

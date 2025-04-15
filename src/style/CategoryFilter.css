@@ -1,23 +1,37 @@
+:root {
+  --green: #c9e4b3;
+  --yellow: #f7f6cf;
+  --peach: #f7c59f;
+  --pink: #ef7c8e;
+  --deep-red: #a3333d;
+}
+
 .category-filter {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin-bottom: 20px;
-  }
-  
-  .filter-button {
-    padding: 10px 20px;
-    font-size: 18px;
-    cursor: pointer;
-    border: none;
-    border-radius: 5px;
-  }
-  
-  .filter-button:hover {
-    background-color: #f0f0f0; 
-  }
-  
-  .filter-button.selected {
-    background-color: #ccc; 
-  }
-  
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+
+.filter-button {
+  background: var(--deep-red);
+  color: var(--yellow);
+  border: none;
+  border-radius: 10px;
+  padding: 10px 28px;
+  font-size: 1.05rem;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(239,124,142,0.08);
+  transition: background 0.2s, color 0.2s, transform 0.1s;
+  letter-spacing: 1px;
+}
+
+.filter-button:hover,
+.filter-button:focus {
+  background: var(--pink);
+  color: var(--deep-red);
+  outline: none;
+  transform: translateY(-2px) scale(1.04);
+}

@@ -11,28 +11,33 @@ const Home: React.FC = () => {
   };
 
   return (
-    <div className="home-container">
-      {/* Greeting */}
-      <h1 className="welcome-title">Welcome to Our Digital Menu!</h1>
-      <p className="welcome-message">
-        Choose your preferred language and start your order.
-      </p>
-
-      {/* Language Selector */}
-      <div className="language-selector">
-        <label htmlFor="language">Select Language:</label>
-        <select id="language" value={language} onChange={handleLanguageChange}>
-          <option value="English">English</option>
-          <option value="Spanish">Spanish</option>
-          <option value="French">French</option>
-          <option value="German">German</option>
-        </select>
+    <div className="home-bg">
+      <div className="home-card">
+        <h1 className="home-title">Welcome to <span className="brand">Digital Menu</span></h1>
+        <p className="home-subtitle">
+          Discover our menu!
+        </p>
+        <div className="language-row">
+          <label htmlFor="language" className="language-label">Language:</label>
+          <select
+            id="language"
+            value={language}
+            onChange={e => setLanguage(e.target.value)}
+            className="language-select"
+          >
+            <option value="English">English</option>
+            <option value="French">Français</option>
+            <option value="Spanish">Español</option>
+            <option value="German">Deutsch</option>
+          </select>
+        </div>
+        <button className="start-order-btn" onClick={() => navigate("/menu")}>
+          Start Your Order
+        </button>
       </div>
-
-      {/* Start Order Button */}
-      <button className="start-order-button" onClick={() => navigate("/menu")}>
-        Start Order
-      </button>
+      <footer className="home-footer">
+        <span>© 2025 Digital Menu</span>
+      </footer>
     </div>
   );
 };
