@@ -13,14 +13,19 @@ const Menu: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [showCart, setShowCart] = useState<boolean>(false);
+  const [sortOrder, setSortOrder] = useState<string>("default");
 
-  // Extract category names from menuData
   const categories = menuData.map((category) => category.category);
 
-  // Filter products based on the selected category
   const filteredProducts = selectedCategory
     ? menuData.find((category) => category.category === selectedCategory)?.products || []
     : menuData.flatMap((category) => category.products);
+
+  const sortedProducts = [...filteredProducts].sort((a, b) => {
+    if (sortOrder === "asc") return a.price - b.price;
+    if (sortOrder === "desc") return b.price - a.price;
+    return 0;
+  });
 
   const handleUpdateCart = (product: Product, quantity: number) => {
     setCartItems((prevCartItems) => {
@@ -46,8 +51,21 @@ const Menu: React.FC = () => {
 
       <Dropdown options={categories} onSelect={setSelectedCategory} />
 
-      <div className="products">
-        {filteredProducts.map((product) => (
+
+    <div className="sort-dropdown">
+      <label htmlFor="sort">Sort by: </label>
+        <select
+          id="sort"
+          value={sortOrder}
+          onChange={(e) => setSortOrder(e.target.value)}
+        >
+          <option value="default">Default</option>
+          <option value="asc">Price: Low to High</option>
+          <option value="desc">Price: High to Low</option>
+        </select>
+    </div>
+    <div className="products">
+        {sortedProducts.map((product) => (
           <ProductCard
             key={product.id}
             {...product}
@@ -59,11 +77,11 @@ const Menu: React.FC = () => {
         ))}
       </div>
 
-      <button className="cart-button" onClick={() => setShowCart(!showCart)}>
-        {showCart ? "Close Cart" : "View Cart"}
-      </button>
+    <button className="cart-button" onClick={() => setShowCart(!showCart)}>
+      {showCart ? "Close Cart" : "View Cart"}
+    </button>
 
-      {showCart && <CartSummary cartItems={cartItems} />}
+    {showCart && <CartSummary cartItems={cartItems} />}
     </div>
   );
 };
