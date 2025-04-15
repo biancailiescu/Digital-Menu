@@ -5,6 +5,7 @@ import Dropdown from "../components/Dropdown";
 import CartSummary from "../components/CartSummary"; 
 import "style/Menu.css"; 
 
+
 interface CartItem extends Product {
   quantity: number; 
 }
@@ -52,36 +53,36 @@ const Menu: React.FC = () => {
       <Dropdown options={categories} onSelect={setSelectedCategory} />
 
 
-    <div className="sort-dropdown">
-      <label htmlFor="sort">Sort by: </label>
-        <select
-          id="sort"
-          value={sortOrder}
-          onChange={(e) => setSortOrder(e.target.value)}
-        >
-          <option value="default">Default</option>
-          <option value="asc">Price: Low to High</option>
-          <option value="desc">Price: High to Low</option>
-        </select>
-    </div>
-    <div className="products">
-        {sortedProducts.map((product) => (
-          <ProductCard
-            key={product.id}
-            {...product}
-            cartQuantity={
-              cartItems.find((item) => item.id === product.id)?.quantity || 0
-            }
-            onUpdateCart={handleUpdateCart}
-          />
-        ))}
+      <div className="sort-dropdown">
+        <label htmlFor="sort">Sort by: </label>
+          <select
+            id="sort"
+            value={sortOrder}
+            onChange={(e) => setSortOrder(e.target.value)}
+          >
+            <option value="default">Default</option>
+            <option value="asc">Price: Low to High</option>
+            <option value="desc">Price: High to Low</option>
+          </select>
       </div>
-
-    <button className="cart-button" onClick={() => setShowCart(!showCart)}>
-      {showCart ? "Close Cart" : "View Cart"}
-    </button>
-
-    {showCart && <CartSummary cartItems={cartItems} />}
+      <div className="products">
+          {sortedProducts.map((product) => (
+            <ProductCard
+              key={product.id}
+              {...product}
+              cartQuantity={
+                cartItems.find((item) => item.id === product.id)?.quantity || 0
+              }
+              onUpdateCart={handleUpdateCart}
+            />
+          ))}
+        </div>
+      <div className="cart-button-container">
+        <button className="cart-button" onClick={() => setShowCart(!showCart)}>
+          {showCart ? "Close Cart" : "View Cart"}
+        </button>
+        {showCart && <CartSummary cartItems={cartItems} />}
+      </div>
     </div>
   );
 };

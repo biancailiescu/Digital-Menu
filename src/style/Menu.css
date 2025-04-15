@@ -33,3 +33,37 @@
     justify-content: center; 
   }
   
+  .sort-dropdown {
+    margin: 20px 0;
+    text-align: center;
+  }
+  
+  .sort-dropdown label {
+    font-size: 16px;
+  }
+  
+  .sort-dropdown select {
+    margin-left: 10px;
+    padding: 5px 10px;
+    font-size: 16px;
+  }
+  .cart-button-container {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    z-index: 10;
+  }
+  
+  .cart-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #e67e22;
+    color: white;
+    border: none;
+    border-radius: 5px;
+  }
+  
+  .cart-button:hover {
+    background-color: #d35400;
+  }

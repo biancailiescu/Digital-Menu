@@ -1,6 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import { Product } from "../data/menuData"; 
+import ProductModal from "./ProductModal";
 import "style/ProductCard.css"; 
 
 interface ProductCardProps extends Product {
@@ -18,9 +19,16 @@ interface ProductCardProps extends Product {
     cartQuantity,
   }) => {
     const [isAvailable, setIsAvailable] = useState<boolean>(available); 
-  
+    const [showModal, setShowModal] = useState(false);
     const handleToggleAvailability = () => {
       setIsAvailable((prevState) => !prevState); 
+    };
+    const modalProduct: Product = {
+      id,
+      name,
+      description,
+      price,
+      available: isAvailable,
     };
   
     return (
@@ -47,7 +55,14 @@ interface ProductCardProps extends Product {
             Toggle Availability
           </label>
         </div>
- 
+
+        <button
+          className="view-details-button"
+          onClick={() => setShowModal(true)}
+        >
+          View Details
+        </button>
+
         {isAvailable && (
           <div className="cart-controls">
             {cartQuantity > 0 ? (
@@ -76,6 +91,9 @@ interface ProductCardProps extends Product {
             )}
           </div>
         )}
+        {showModal && (
+        <ProductModal product={modalProduct} onClose={() => setShowModal(false)} />
+      )}
       </div>
     );
   };
